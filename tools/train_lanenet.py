@@ -37,6 +37,7 @@ def init_args():
     parser.add_argument('--dataset_dir', type=str, help='The training dataset dir path')
     parser.add_argument('--net', type=str, help='Which base net work to use', default='vgg')
     parser.add_argument('--weights_path', type=str, help='The pretrained weights path')
+    parser.add_argument('--checkpoint_path', type=str, help='The path to save checkpoints', default='/job_dir')
 
     return parser.parse_args()
 
@@ -55,7 +56,7 @@ def minmax_scale(input_arr):
     return output_arr
 
 
-def train_net(dataset_dir, weights_path=None, net_flag='vgg'):
+def train_net(dataset_dir, weights_path=None, net_flag='vgg', job_dir='/job_dir'):
     """
 
     :param dataset_dir:
@@ -120,7 +121,7 @@ def train_net(dataset_dir, weights_path=None, net_flag='vgg'):
 
     # Set tf saver
     saver = tf.train.Saver()
-    model_save_dir = 'model/tusimple_lanenet'
+    model_save_dir = job_dir
     if not ops.exists(model_save_dir):
         os.makedirs(model_save_dir)
     train_start_time = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
@@ -321,4 +322,4 @@ if __name__ == '__main__':
     args = init_args()
 
     # train lanenet
-    train_net(args.dataset_dir, args.weights_path, net_flag=args.net)
+    train_net(args.dataset_dir, args.weights_path, net_flag=args.net, job_dir=args.checkpoint_path)
