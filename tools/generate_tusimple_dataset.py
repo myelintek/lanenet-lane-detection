@@ -128,7 +128,7 @@ def gen_train_sample(src_dir, b_gt_image_dir, i_gt_image_dir, image_dir):
                 print('图像对: {:s}损坏'.format(image_name))
                 continue
             else:
-                info = '{:s} {:s} {:s}'.format(image_path, binary_gt_image_path, instance_gt_image_path)
+                info = '{:s} {:s} {:s}'.format('/dataset/training/gt_image/'+image_name, '/dataset/training/gt_binary_image/'+image_name, '/dataset/training/gt_instance_image/'+image_name)
                 file.write(info + '\n')
     return
 

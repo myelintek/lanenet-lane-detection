@@ -49,7 +49,7 @@ class DataSet(object):
         with open(dataset_info_file, 'r') as file:
             for _info in file:
                 info_tmp = _info.strip(' ').split()
-
+                if info_tmp==[]: continue
                 gt_img_list.append(info_tmp[0])
                 gt_label_binary_list.append(info_tmp[1])
                 gt_label_instance_list.append(info_tmp[2])
