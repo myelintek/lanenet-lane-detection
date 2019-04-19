@@ -15,13 +15,18 @@ import os.path as ops
 import time
 
 import cv2
+import glob
 import glog as log
 import numpy as np
 import tensorflow as tf
+import matplotlib.pyplot as plt
+
 
 from config import global_config
 from lanenet_model import lanenet_merge_model
 from data_provider import lanenet_data_processor
+from lanenet_model import lanenet_cluster
+from lanenet_model import lanenet_postprocess
 
 CFG = global_config.cfg
 VGG_MEAN = [103.939, 116.779, 123.68]
