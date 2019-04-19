@@ -50,7 +50,7 @@ def init_args():
     parser.add_argument('--image_path', type=str, help='The image path or the src image save dir')
     #both train and test
     parser.add_argument('--weights_path', type=str, help='The pretrained weights path')
-    parser.add_argument('--train', type=bool, help='train or test', default=True)
+    parser.add_argument('--run', type=str, help='train or test')
 
     return parser.parse_args()
 
@@ -505,10 +505,11 @@ def test_lanenet_batch(image_dir, weights_path, batch_size, use_gpu, save_dir=No
 if __name__ == '__main__':
     # init args
     args = init_args()
-    if args.train:
+    print(args.run)
+    if args.run=='train':
         # train lanenet
         train_net(args.dataset_dir, args.weights_path, net_flag=args.net, job_dir=args.checkpoint_path)
-    else:
+    elif args.run=='test':
         if args.save_dir is not None and not ops.exists(args.save_dir):
             log.error('{:s} not exist and has been made'.format(args.save_dir))
             os.makedirs(args.save_dir)
@@ -520,3 +521,5 @@ if __name__ == '__main__':
             # test hnet model on a batch of image
             test_lanenet_batch(image_dir=args.image_path, weights_path=args.weights_path,
                                save_dir=args.save_dir, use_gpu=args.use_gpu, batch_size=args.batch_size)
+    else:
+        raise ValueError('--train argument can be only "train" or "test"')
