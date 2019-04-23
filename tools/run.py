@@ -133,7 +133,7 @@ def train_net(dataset_dir, weights_path=None, net_flag='vgg', job_dir='/job_dir'
                                                                     global_step=global_step)
 
     # Set tf saver
-    saver = tf.train.Saver()
+    saver = tf.train.Saver(max_to_keep=1)
     model_save_dir = job_dir
     if not ops.exists(model_save_dir):
         os.makedirs(model_save_dir)
